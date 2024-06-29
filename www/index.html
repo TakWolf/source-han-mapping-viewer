@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>思源映射查看器</title>
+    <link rel="stylesheet" href="https://source-han-vf-sliced.takwolf.com/css/index.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app">
+    <nav class="nav">
+        <h1 class="title">思源映射查看器</h1>
+    </nav>
+    <main class="main">
+        <template v-if="mappingLoadFailed">
+            <div class="error-tip">映射数据加载失败，请刷新浏览器重试</div>
+        </template>
+        <template v-else-if="!mapping">
+            <div class="loading-tip">正在加载映射数据，请稍后</div>
+        </template>
+        <template v-if="mapping">
+            <label class="input">
+                <input type="text" placeholder="请在此输入字符" v-model="input">
+            </label>
+            <div class="option-line">
+                <label class="checkbox">
+                    <input type="checkbox" v-model="displaySans">
+                    <span class="name">思源黑体</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" v-model="displaySerif">
+                    <span class="name">思源宋体</span>
+                </label>
+            </div>
+            <div class="option-line">
+                <label class="range">
+                    <span class="name">字体尺寸: {{ fontSize }}px</span>
+                    <input type="range" min="100" max="400" step="10" v-model="fontSize">
+                </label>
+                <label class="range">
+                    <span class="name">字体粗细: {{ fontWeight }}</span>
+                    <input type="range" min="200" max="900" step="50" v-model="fontWeight">
+                </label>
+            </div>
+        </template>
+        <template v-if="searchQuery.length > 0">
+            <div class="search-result">
+                <div class="item" v-for="codePoint in searchQuery" :set="c = String.fromCodePoint(codePoint)">
+                    <div class="title">
+                        <span class="code-point">U+{{ codePoint.toString(16).toUpperCase().padStart(4, '0') }}</span>
+                        <span class="char">{{ c }}</span>
+                        <span class="tag" v-for="tag in mapping[codePoint].tags">{{ tag }}</span>
+                    </div>
+                    <div class="glyphs">
+                        <div class="line" v-if="displaySans && 'sans' in mapping[codePoint]">
+                            <div class="glyph" v-for="languageFlavor in languageFlavors" :set="glyphName = mapping[codePoint]['sans'][languageFlavor]">
+                                <div class="info sans-info">
+                                    <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
+                                    <span class="glyph-name">{{ glyphName }}</span>
+                                </div>
+                                <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
+                            </div>
+                        </div>
+                        <div class="line" v-if="displaySerif && 'serif' in mapping[codePoint]">
+                            <div class="glyph" v-for="languageFlavor in languageFlavors" :set="glyphName = mapping[codePoint]['serif'][languageFlavor]">
+                                <div class="info serif-info">
+                                    <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
+                                    <span class="glyph-name">{{ glyphName }}</span>
+                                </div>
+                                <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSerif-' + languageFlavor.toUpperCase() + ', serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </main>
+    <footer class="footer">
+        <span>© 2024 狼人小林</span>
+        <span class="separate">-</span>
+        <a href="https://github.com/TakWolf/source-han-mapping-viewer" target="_blank">本站源码</a>
+        <span class="separate">-</span>
+        <a href="https://github.com/adobe-fonts/source-han-sans" target="_blank">思源黑体</a>
+        <span class="separate">-</span>
+        <a href="https://github.com/adobe-fonts/source-han-serif" target="_blank">思源宋体</a>
+        <span class="separate">-</span>
+        <a href="https://github.com/TakWolf/source-han-vf-sliced" target="_blank">字体加速</a>
+    </footer>
+</div>
+
+<script src="js/app.js" type="module"></script>
+
+</body>
+</html>
