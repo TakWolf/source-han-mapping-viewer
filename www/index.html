@@ -45,37 +45,38 @@
                 </label>
             </div>
         </template>
-        <template v-if="searchQuery.length > 0">
-            <div class="search-result">
-                <div class="item" v-for="codePoint in searchQuery" :set="c = String.fromCodePoint(codePoint)">
-                    <div class="title">
-                        <span class="code-point">U+{{ codePoint.toString(16).toUpperCase().padStart(4, '0') }}</span>
-                        <span class="char">{{ c }}</span>
-                        <span class="tag" v-for="tag in mapping[codePoint].tags">{{ tag }}</span>
-                    </div>
-                    <div class="glyphs">
-                        <div class="line" v-if="displaySans && 'sans' in mapping[codePoint]">
-                            <div class="glyph" v-for="languageFlavor in languageFlavors" :set="glyphName = mapping[codePoint]['sans'][languageFlavor]">
-                                <div class="info sans-info">
-                                    <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
-                                    <span class="glyph-name">{{ glyphName }}</span>
-                                </div>
-                                <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
+        <div class="search-result">
+            <div class="item" v-for="codePoint in searchQuery" :set="c = String.fromCodePoint(codePoint)">
+                <div class="title">
+                    <span class="code-point">U+{{ codePoint.toString(16).toUpperCase().padStart(4, '0') }}</span>
+                    <span class="char">{{ c }}</span>
+                    <span class="tag" v-for="tag in mapping[codePoint].tags">{{ tag }}</span>
+                </div>
+                <div class="glyphs">
+                    <div class="line" v-if="displaySans && 'sans' in mapping[codePoint]">
+                        <div class="glyph" v-for="languageFlavor in languageFlavors" :set="glyphName = mapping[codePoint]['sans'][languageFlavor]">
+                            <div class="info sans-info">
+                                <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
+                                <span class="glyph-name">{{ glyphName }}</span>
                             </div>
+                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
                         </div>
-                        <div class="line" v-if="displaySerif && 'serif' in mapping[codePoint]">
-                            <div class="glyph" v-for="languageFlavor in languageFlavors" :set="glyphName = mapping[codePoint]['serif'][languageFlavor]">
-                                <div class="info serif-info">
-                                    <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
-                                    <span class="glyph-name">{{ glyphName }}</span>
-                                </div>
-                                <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSerif-' + languageFlavor.toUpperCase() + ', serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
+                    </div>
+                    <div class="line" v-if="displaySerif && 'serif' in mapping[codePoint]">
+                        <div class="glyph" v-for="languageFlavor in languageFlavors" :set="glyphName = mapping[codePoint]['serif'][languageFlavor]">
+                            <div class="info serif-info">
+                                <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
+                                <span class="glyph-name">{{ glyphName }}</span>
                             </div>
+                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSerif-' + languageFlavor.toUpperCase() + ', serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </template>
+            <div class="item" v-if="searchQuery.length === 0">
+                <div class="help-tip">随便搜搜什么字符，例如：<span class="example-text" @click="onExampleTextClick('邊邉㍿')">邊邉㍿</span></div>
+            </div>
+        </div>
     </main>
     <footer class="footer">
         <span>© 2024 狼人小林</span>

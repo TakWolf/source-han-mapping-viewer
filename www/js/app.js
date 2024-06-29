@@ -85,5 +85,8 @@ createApp({
             }
             return 'black'
         },
+        onExampleTextClick(text) {
+            this.input = text
+        },
     },
 }).mount('#app')

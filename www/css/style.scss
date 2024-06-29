@@ -153,6 +153,15 @@
                     }
                 }
             }
+            .help-tip {
+                padding: 32px;
+                font-size: 16px;
+                .example-text {
+                    color: blue;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

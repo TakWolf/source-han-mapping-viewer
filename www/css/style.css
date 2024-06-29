@@ -150,6 +150,15 @@
 .main .search-result .item .glyphs .line .glyph .char {
   text-align: center;
 }
+.main .search-result .item .help-tip {
+  padding: 32px;
+  font-size: 16px;
+}
+.main .search-result .item .help-tip .example-text {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .footer {
   padding-top: 8px;
