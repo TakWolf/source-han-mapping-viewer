@@ -41,8 +41,11 @@ createApp({
         },
     },
     watch: {
+        input(newValue) {
+            window.location.hash = newValue
+        },
         settings(newValue) {
-            console.log(newValue)
+            console.log('保存配置：', newValue)
             localStorage.setItem('source-han-mapping-viewer', JSON.stringify(newValue))
         },
     },
@@ -51,7 +54,7 @@ createApp({
             let response = await fetch('data/mapping.json')
             if (response.ok) {
                 this.mapping = await response.json()
-                console.debug(this.mapping)
+                console.log('加载映射：', this.mapping)
             } else {
                 this.mappingLoadFailed = true
                 return
@@ -63,7 +66,15 @@ createApp({
 
         let json = localStorage.getItem('source-han-mapping-viewer')
         if (json) {
-            Object.assign(this, JSON.parse(json))
+            let settings = JSON.parse(json)
+            console.log('加载配置：', settings)
+            Object.assign(this, settings)
+        }
+
+        let hash = decodeURIComponent(window.location.hash).replace('#', '')
+        if (hash !== '') {
+            console.log('设置搜索：', hash)
+            this.input = hash
         }
     },
     methods: {
