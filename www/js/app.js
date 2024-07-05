@@ -96,6 +96,10 @@ createApp({
             }
             return 'black'
         },
+        onResetOptionsClick() {
+            this.fontSize = 160
+            this.fontWeight = 400
+        },
         onExampleTextClick(text) {
             this.input = text
         },

@@ -43,6 +43,7 @@
                     <span class="name">字体粗细: {{ fontWeight }}</span>
                     <input type="range" min="200" max="900" step="50" v-model="fontWeight">
                 </label>
+                <button @click="onResetOptionsClick">重置参数</button>
             </div>
         </template>
         <div class="search-result">
