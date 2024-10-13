@@ -50,7 +50,7 @@
             <div class="item" v-for="codePoint in searchQuery" :key="codePoint" :set="c = String.fromCodePoint(codePoint)">
                 <div class="title">
                     <span class="code-point">U+{{ codePoint.toString(16).toUpperCase().padStart(4, '0') }}</span>
-                    <span class="char">{{ c }}</span>
+                    <span class="char">{{ c === ' ' ? '&nbsp;' : c }}</span>
                     <span class="tag" v-for="tag in mapping[codePoint].tags" :key="tag">{{ tag }}</span>
                 </div>
                 <div class="glyphs">
@@ -60,7 +60,7 @@
                                 <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
                                 <span class="glyph-name">{{ glyphName }}</span>
                             </div>
-                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
+                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c === ' ' ? '&nbsp;' : c }}</span>
                         </div>
                     </div>
                     <div class="line" v-if="displaySerif && 'serif' in mapping[codePoint]">
@@ -69,7 +69,7 @@
                                 <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
                                 <span class="glyph-name">{{ glyphName }}</span>
                             </div>
-                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSerif-' + languageFlavor.toUpperCase() + ', serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c }}</span>
+                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSerif-' + languageFlavor.toUpperCase() + ', serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c === ' ' ? '&nbsp;' : c }}</span>
                         </div>
                     </div>
                 </div>
