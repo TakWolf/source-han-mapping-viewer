@@ -1,4 +1,4 @@
-import {createApp} from './vue.esm-browser.prod.js'
+import { createApp } from './vue.esm-browser.prod.js'
 
 createApp({
     data() {
