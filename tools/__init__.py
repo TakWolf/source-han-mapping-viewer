@@ -23,5 +23,5 @@ language_flavors = [
 
 font_versions = {
     'sans': '2.004R',
-    'serif': '2.002R',
+    'serif': '2.003R',
 }
