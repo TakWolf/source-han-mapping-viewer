@@ -10,8 +10,8 @@ createApp({
                 'jp',
                 'kr',
             ],
-            mapping: null,
-            mappingLoadFailed: false,
+            db: null,
+            dbLoadFailed: false,
             input: '',
             displaySans: true,
             displaySerif: true,
@@ -24,7 +24,7 @@ createApp({
             let query = []
             for (let c of this.input) {
                 let codePoint = c.codePointAt(0)
-                if (codePoint in this.mapping && !query.includes(codePoint)) {
+                if (codePoint in this.db.mapping && !query.includes(codePoint)) {
                     query.push(codePoint)
                 }
             }
@@ -51,16 +51,17 @@ createApp({
     },
     async created() {
         try {
-            let response = await fetch('data/mapping.json')
+            let response = await fetch('data/db.json')
             if (response.ok) {
-                this.mapping = await response.json()
-                console.log('加载映射：', this.mapping)
+                let db = await response.json()
+                console.log('加载映射：', db)
+                this.db = db
             } else {
-                this.mappingLoadFailed = true
+                this.dbLoadFailed = true
                 return
             }
         } catch (e) {
-            this.mappingLoadFailed = true
+            this.dbLoadFailed = true
             return
         }
 

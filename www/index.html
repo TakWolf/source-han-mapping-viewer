@@ -14,13 +14,13 @@
         <h1 class="title">思源映射查看器</h1>
     </nav>
     <main class="main">
-        <template v-if="mappingLoadFailed">
+        <template v-if="dbLoadFailed">
             <div class="error-tip">映射数据加载失败，请刷新浏览器重试</div>
         </template>
-        <template v-else-if="!mapping">
+        <template v-else-if="!db">
             <div class="loading-tip">正在加载映射数据，请稍后</div>
         </template>
-        <template v-if="mapping">
+        <template v-if="db">
             <label class="input">
                 <input type="text" placeholder="请在此输入字符" v-model="input">
             </label>
@@ -51,11 +51,11 @@
                 <div class="title">
                     <span class="code-point">U+{{ codePoint.toString(16).toUpperCase().padStart(4, '0') }}</span>
                     <span class="char">{{ c === ' ' ? '&nbsp;' : c }}</span>
-                    <span class="tag" v-for="tag in mapping[codePoint].tags" :key="tag">{{ tag }}</span>
+                    <span class="tag" v-for="tagIndex in db.mapping[codePoint][2]" :key="tagIndex">{{ db.tags[tagIndex] }}</span>
                 </div>
                 <div class="glyphs">
-                    <div class="line" v-if="displaySans && 'sans' in mapping[codePoint]">
-                        <div class="glyph" v-for="languageFlavor in languageFlavors" :key="languageFlavor" :set="glyphName = mapping[codePoint]['sans'][languageFlavor]">
+                    <div class="line" v-if="displaySans && db.mapping[codePoint][0].length > 0">
+                        <div class="glyph" v-for="(languageFlavor, languageFlavorIndex) in languageFlavors" :key="languageFlavor" :set="glyphName = db.ai0['sans'][db.mapping[codePoint][0][languageFlavorIndex]]">
                             <div class="info sans-info">
                                 <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
                                 <span class="glyph-name">{{ glyphName }}</span>
@@ -63,8 +63,8 @@
                             <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c === ' ' ? '&nbsp;' : c }}</span>
                         </div>
                     </div>
-                    <div class="line" v-if="displaySerif && 'serif' in mapping[codePoint]">
-                        <div class="glyph" v-for="languageFlavor in languageFlavors" :key="languageFlavor" :set="glyphName = mapping[codePoint]['serif'][languageFlavor]">
+                    <div class="line" v-if="displaySerif && db.mapping[codePoint][1].length > 0">
+                        <div class="glyph" v-for="(languageFlavor, languageFlavorIndex) in languageFlavors" :key="languageFlavor" :set="glyphName = db.ai0['serif'][db.mapping[codePoint][1][languageFlavorIndex]]">
                             <div class="info serif-info">
                                 <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
                                 <span class="glyph-name">{{ glyphName }}</span>
