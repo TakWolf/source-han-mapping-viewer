@@ -89,6 +89,15 @@ createApp({
             if (glyphName.endsWith('-TW')) {
                 return 'green'
             }
+            if (glyphName.endsWith('-JP90-JP')) {
+                return 'crimson'
+            }
+            if (glyphName.endsWith('uE0101-JP')) {
+                return 'darkred'
+            }
+            if (glyphName.endsWith('uE0102-JP')) {
+                return 'indianred'
+            }
             if (glyphName.endsWith('-JP')) {
                 return 'red'
             }
