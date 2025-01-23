@@ -21,9 +21,9 @@ createApp({
     },
     computed: {
         searchQuery() {
-            let query = []
-            for (let c of this.input) {
-                let codePoint = c.codePointAt(0)
+            const query = []
+            for (const c of this.input) {
+                const codePoint = c.codePointAt(0)
                 if (codePoint in this.db.mapping && !query.includes(codePoint)) {
                     query.push(codePoint)
                 }
@@ -51,9 +51,9 @@ createApp({
     },
     async created() {
         try {
-            let response = await fetch('data/db.json')
+            const response = await fetch('data/db.json')
             if (response.ok) {
-                let db = await response.json()
+                const db = await response.json()
                 console.log('加载映射：', db)
                 this.db = db
             } else {
@@ -65,14 +65,14 @@ createApp({
             return
         }
 
-        let json = localStorage.getItem('source-han-mapping-viewer')
+        const json = localStorage.getItem('source-han-mapping-viewer')
         if (json) {
-            let settings = JSON.parse(json)
+            const settings = JSON.parse(json)
             console.log('加载配置：', settings)
             Object.assign(this, settings)
         }
 
-        let hash = decodeURIComponent(window.location.hash).replace('#', '')
+        const hash = decodeURIComponent(window.location.hash).replace('#', '')
         if (hash !== '') {
             console.log('设置搜索：', hash)
             this.input = hash
