@@ -9,43 +9,35 @@
 </head>
 <body>
 
-<div id="app">
+<div id="app" v-cloak>
     <nav class="nav">
         <h1 class="title">思源映射查看器</h1>
     </nav>
     <main class="main">
-        <template v-if="dbLoadFailed">
-            <div class="error-tip">映射数据加载失败，请刷新浏览器重试</div>
-        </template>
-        <template v-else-if="!db">
-            <div class="loading-tip">正在加载映射数据，请稍后</div>
-        </template>
-        <template v-if="db">
-            <label class="input">
-                <input type="text" placeholder="请在此输入字符" v-model="input">
+        <label class="input">
+            <input type="text" placeholder="请在此输入字符" v-model="input">
+        </label>
+        <div class="option-line">
+            <label class="checkbox">
+                <input type="checkbox" v-model="displaySans">
+                <span class="name">思源黑体</span>
             </label>
-            <div class="option-line">
-                <label class="checkbox">
-                    <input type="checkbox" v-model="displaySans">
-                    <span class="name">思源黑体</span>
-                </label>
-                <label class="checkbox">
-                    <input type="checkbox" v-model="displaySerif">
-                    <span class="name">思源宋体</span>
-                </label>
-            </div>
-            <div class="option-line">
-                <label class="range">
-                    <span class="name">字体尺寸: {{ fontSize }}px</span>
-                    <input type="range" min="100" max="400" step="10" v-model="fontSize">
-                </label>
-                <label class="range">
-                    <span class="name">字体粗细: {{ fontWeight }}</span>
-                    <input type="range" min="200" max="900" step="50" v-model="fontWeight">
-                </label>
-                <button @click="onResetOptionsClick">重置参数</button>
-            </div>
-        </template>
+            <label class="checkbox">
+                <input type="checkbox" v-model="displaySerif">
+                <span class="name">思源宋体</span>
+            </label>
+        </div>
+        <div class="option-line">
+            <label class="range">
+                <span class="name">字体尺寸: {{ fontSize }}px</span>
+                <input type="range" min="100" max="400" step="10" v-model="fontSize">
+            </label>
+            <label class="range">
+                <span class="name">字体粗细: {{ fontWeight }}</span>
+                <input type="range" min="200" max="900" step="50" v-model="fontWeight">
+            </label>
+            <button @click="onResetOptionsClick">重置参数</button>
+        </div>
         <div class="search-result">
             <div class="item" v-for="codePoint in searchQuery" :key="codePoint" :set="c = String.fromCodePoint(codePoint)">
                 <div class="title">

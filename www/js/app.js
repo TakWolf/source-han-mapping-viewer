@@ -1,4 +1,5 @@
 import { createApp } from './vue.esm-browser.prod.js'
+import db from '../data/db.js'
 
 createApp({
     data() {
@@ -10,8 +11,7 @@ createApp({
                 'jp',
                 'kr',
             ],
-            db: null,
-            dbLoadFailed: false,
+            db: db,
             input: '',
             displaySans: true,
             displaySerif: true,
@@ -50,21 +50,6 @@ createApp({
         },
     },
     async created() {
-        try {
-            const response = await fetch('data/db.json')
-            if (response.ok) {
-                const db = await response.json()
-                console.log('加载映射：', db)
-                this.db = db
-            } else {
-                this.dbLoadFailed = true
-                return
-            }
-        } catch (e) {
-            this.dbLoadFailed = true
-            return
-        }
-
         const json = localStorage.getItem('source-han-mapping-viewer')
         if (json) {
             const settings = JSON.parse(json)

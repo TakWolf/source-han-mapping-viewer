@@ -8,6 +8,10 @@ body {
     font-family: sans-serif;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 .nav {
     background-color: deepskyblue;
     box-shadow: 0 0 8px gray;
