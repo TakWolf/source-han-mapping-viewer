@@ -15,6 +15,7 @@ body {
 .nav {
     background-color: deepskyblue;
     box-shadow: 0 0 8px gray;
+
     .title {
         margin-left: 16px;
         margin-right: 16px;
@@ -31,14 +32,17 @@ body {
         line-height: 96px;
         text-align: center;
     }
+
     .loading-tip {
         font-size: 32px;
         line-height: 96px;
         text-align: center;
     }
+
     .input {
         margin: 8px;
         display: block;
+
         input {
             width: 100%;
             padding: 8px;
@@ -48,39 +52,47 @@ body {
             border-width: 1px;
         }
     }
+
     .option-line {
         margin: 8px;
         display: flex;
         flex-direction: row;
+
         .checkbox {
             display: flex;
             flex-direction: row;
             align-items: center;
+
             .name {
                 margin-left: 6px;
                 margin-right: 20px;
                 font-size: 16px;
             }
         }
+
         .range {
             display: flex;
             flex-direction: row;
             align-items: center;
+
             .name {
                 margin-right: 8px;
                 font-size: 16px;
             }
+
             input {
                 margin-right: 20px;
             }
         }
     }
+
     .search-result {
         .item {
             margin: 8px;
             border-style: solid;
             border-color: black;
             border-width: 1px;
+
             .title {
                 display: flex;
                 flex-direction: row;
@@ -90,6 +102,7 @@ body {
                 border-bottom-style: solid;
                 border-bottom-color: black;
                 border-bottom-width: 1px;
+
                 .code-point {
                     padding-left: 8px;
                     padding-right: 8px;
@@ -99,12 +112,14 @@ body {
                     font-weight: bold;
                     line-height: 28px;
                 }
+
                 .char {
                     margin-left: 8px;
                     margin-right: 4px;
                     font-size: 18px;
                     font-weight: bold;
                 }
+
                 .tag {
                     margin: 4px;
                     padding-left: 8px;
@@ -118,6 +133,7 @@ body {
                     border-radius: 10px;
                 }
             }
+
             .glyphs {
                 .line {
                     margin: 8px;
@@ -125,6 +141,7 @@ body {
                     flex-direction: row;
                     flex-wrap: wrap;
                     gap: 8px;
+
                     .glyph {
                         display: flex;
                         flex-direction: column;
@@ -132,6 +149,7 @@ body {
                         border-style: solid;
                         border-color: black;
                         border-width: 1px;
+
                         .info {
                             width: 100%;
                             display: flex;
@@ -141,6 +159,7 @@ body {
                             border-bottom-style: solid;
                             border-bottom-color: black;
                             border-bottom-width: 1px;
+
                             .language-flavor {
                                 padding-left: 4px;
                                 padding-right: 4px;
@@ -150,6 +169,7 @@ body {
                                 font-weight: bold;
                                 line-height: 20px;
                             }
+
                             .glyph-name {
                                 margin-left: 4px;
                                 margin-right: 4px;
@@ -157,21 +177,26 @@ body {
                                 font-weight: bold;
                             }
                         }
+
                         .sans-info {
                             background-color: beige;
                         }
+
                         .serif-info {
                             background-color: linen;
                         }
+
                         .char {
                             text-align: center;
                         }
                     }
                 }
             }
+
             .help-tip {
                 padding: 32px;
                 font-size: 16px;
+
                 .example-text {
                     color: blue;
                     text-decoration: underline;
@@ -188,8 +213,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .line {
         margin: 2px;
+
         .separate {
             padding-left: 8px;
             padding-right: 8px;
