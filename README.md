@@ -6,7 +6,7 @@
 
 ## 字体版本
 
-- [思源黑体 - 2.004R](https://github.com/adobe-fonts/source-han-sans/releases/tag/2.004R)
+- [思源黑体 - 2.005R](https://github.com/adobe-fonts/source-han-sans/releases/tag/2.005R)
 - [思源宋体 - 2.003R](https://github.com/adobe-fonts/source-han-serif/releases/tag/2.003R)
 
 ## 程序依赖
