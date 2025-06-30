@@ -52,12 +52,15 @@ createApp({
     },
     async created() {
         document.fonts.addEventListener('loading', () => {
+            console.log('字体加载回调：', 'loading')
             this.fontsLoadingStatus = 'loading'
         })
         document.fonts.addEventListener('loadingdone', () => {
+            console.log('字体加载回调：', 'done')
             this.fontsLoadingStatus = 'done'
         })
         document.fonts.addEventListener('loadingerror', () => {
+            console.log('字体加载回调：', 'error')
             this.fontsLoadingStatus = 'error'
         })
 
