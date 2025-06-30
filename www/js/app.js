@@ -12,6 +12,7 @@ createApp({
                 'kr',
             ],
             db: db,
+            fontsLoadingStatus: 'done',
             input: '',
             displaySans: true,
             displaySerif: true,
@@ -50,6 +51,16 @@ createApp({
         },
     },
     async created() {
+        document.fonts.addEventListener('loading', () => {
+            this.fontsLoadingStatus = 'loading'
+        })
+        document.fonts.addEventListener('loadingdone', () => {
+            this.fontsLoadingStatus = 'done'
+        })
+        document.fonts.addEventListener('loadingerror', () => {
+            this.fontsLoadingStatus = 'error'
+        })
+
         const json = localStorage.getItem('source-han-mapping-viewer')
         if (json) {
             const settings = JSON.parse(json)

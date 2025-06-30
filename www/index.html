@@ -85,6 +85,10 @@
             <a href="https://github.com/TakWolf/source-han-vf-sliced" target="_blank">字体加速</a>
         </div>
     </footer>
+    <div class="fonts-loading-status">
+        <div class="tip loading" v-if="fontsLoadingStatus === 'loading'">字体加载中，请稍后…</div>
+        <div class="tip error" v-else-if="fontsLoadingStatus === 'error'">字体加载失败，请刷新页面重试</div>
+    </div>
 </div>
 
 <script src="js/app.js" type="module"></script>

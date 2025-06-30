@@ -26,19 +26,6 @@ body {
 }
 
 .main {
-    .error-tip {
-        color: red;
-        font-size: 32px;
-        line-height: 96px;
-        text-align: center;
-    }
-
-    .loading-tip {
-        font-size: 32px;
-        line-height: 96px;
-        text-align: center;
-    }
-
     .input {
         margin: 8px;
         display: block;
@@ -221,5 +208,26 @@ body {
             padding-left: 8px;
             padding-right: 8px;
         }
+    }
+}
+
+.fonts-loading-status {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+
+    .tip {
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+
+    .loading {
+        background-color: gold;
+    }
+
+    .error {
+        color: white;
+        background-color: red;
     }
 }
