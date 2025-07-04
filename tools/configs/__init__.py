@@ -11,8 +11,3 @@ language_flavors = [
     'jp',
     'kr',
 ]
-
-font_versions = {
-    'sans': '2.005R',
-    'serif': '2.003R',
-}

@@ -1,30 +1,78 @@
+import json
 import shutil
-
-import httpx
+import zipfile
 
 from tools import configs
 from tools.configs import path_define
+from tools.utils import github_api, download_util
 
 
-def _fetch_raw_data(font_style: str, font_version: str, file_name: str):
-    url = f'https://raw.githubusercontent.com/adobe-fonts/source-han-{font_style}/{font_version}/Resources/{file_name}'
-    response = httpx.get(url)
-    assert response.is_success and 'text/plain' in response.headers['Content-Type']
-    file_path = path_define.fonts_dir.joinpath(font_style).joinpath(file_name)
-    file_path.parent.mkdir(parents=True, exist_ok=True)
-    file_path.write_text(response.text.replace('\t', ' '), 'utf-8')
-    print(f"Update: '{url}'")
+def _upgrade_fonts(font_style: str):
+    repository_name = f'adobe-fonts/source-han-{font_style}'
+    version = github_api.get_releases_latest_tag_name(repository_name).removesuffix('R')
+
+    fonts_dir = path_define.fonts_dir.joinpath(font_style)
+    version_file_path = fonts_dir.joinpath('version.json')
+    if version_file_path.exists():
+        version_info = json.loads(version_file_path.read_bytes())
+        if version == version_info['version']:
+            return
+    print(f"Need upgrade fonts '{font_style}' to version: '{version}'")
+
+    download_dir = path_define.cache_dir.joinpath(repository_name, version)
+    download_dir.mkdir(parents=True, exist_ok=True)
+
+    asset_file_name = f'SourceHan{font_style.capitalize()}-VF.zip'
+    asset_file_path = download_dir.joinpath(asset_file_name)
+    asset_url = f'https://github.com/{repository_name}/releases/download/{version}R/02_{asset_file_name}'
+    if not asset_file_path.exists():
+        print(f"Start download: '{asset_url}'")
+        download_util.download_file(asset_url, asset_file_path)
+    else:
+        print(f"Already downloaded: '{asset_file_path}'")
+
+    asset_unzip_dir = asset_file_path.with_suffix('')
+    if asset_unzip_dir.exists():
+        shutil.rmtree(asset_unzip_dir)
+    with zipfile.ZipFile(asset_file_path) as file:
+        file.extractall(asset_unzip_dir)
+    print(f"Unzip: '{asset_unzip_dir}'")
+
+    if fonts_dir.exists():
+        shutil.rmtree(fonts_dir)
+    fonts_dir.mkdir(parents=True)
+
+    shutil.copyfile(asset_unzip_dir.joinpath('LICENSE.txt'), fonts_dir.joinpath('LICENSE.txt'))
+    print(f"Copy: 'LICENSE.txt'")
+
+    for file_path in asset_unzip_dir.joinpath('Variable', 'WOFF2', 'OTF').iterdir():
+        if file_path.suffix != '.woff2':
+            continue
+        shutil.copyfile(file_path, fonts_dir.joinpath(file_path.name))
+        print(f"Copy: '{file_path.name}'")
+
+    shutil.rmtree(asset_unzip_dir)
+
+    ai0_file_name = f'AI0-SourceHan{font_style.capitalize()}'
+    download_util.download_file(f'https://raw.githubusercontent.com/{repository_name}/{version}R/Resources/{ai0_file_name}', fonts_dir.joinpath(ai0_file_name))
+    print(f"Downloaded: '{ai0_file_name}'")
+
+    for language_flavor in configs.language_flavors:
+        utf_file_name = f'utf32-{language_flavor}.map'
+        download_util.download_file(f'https://raw.githubusercontent.com/{repository_name}/{version}R/Resources/{utf_file_name}', fonts_dir.joinpath(utf_file_name))
+        print(f"Downloaded: '{utf_file_name}'")
+
+    version_info = {
+        'version': version,
+        'version_url': f'https://github.com/adobe-fonts/source-han-serif/releases/tag/{version}R',
+    }
+    version_file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')
+    print(f"Update version file: '{version_file_path}'")
 
 
 def main():
-    if path_define.fonts_dir.exists():
-        shutil.rmtree(path_define.fonts_dir)
-
     for font_style in configs.font_styles:
-        font_version = configs.font_versions[font_style]
-        _fetch_raw_data(font_style, font_version, f'AI0-SourceHan{font_style.capitalize()}')
-        for language_flavor in configs.language_flavors:
-            _fetch_raw_data(font_style, font_version, f'utf32-{language_flavor}.map')
+        _upgrade_fonts(font_style)
 
 
 if __name__ == '__main__':

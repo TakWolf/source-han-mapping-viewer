@@ -12,6 +12,7 @@
 ## 程序依赖
 
 - [HTTPX](https://github.com/encode/httpx)
+- [tqdm](https://github.com/tqdm/tqdm)
 - [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [Character Encoding Utils](https://github.com/TakWolf/character-encoding-utils)
 - [Vue.js](https://cn.vuejs.org)
