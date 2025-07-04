@@ -79,29 +79,39 @@ createApp({
     },
     methods: {
         getGlyphColor(glyphName) {
-            if (glyphName.endsWith('-CN')) {
+            let suffix
+            let i = glyphName.indexOf('-')
+            if (i >= 0) {
+                suffix = `-${glyphName.slice(i + 1)}`
+            } else {
+                i = glyphName.indexOf('.')
+                if (i >= 0) {
+                    suffix = `.${glyphName.slice(i + 1)}`
+                } else {
+                    suffix = ''
+                }
+            }
+
+            if (['-CN', '-CN-V'].includes(suffix)) {
                 return 'orange'
             }
-            if (glyphName.endsWith('-HK')) {
+            if (['-HK'].includes(suffix)) {
                 return 'dodgerblue'
             }
-            if (glyphName.endsWith('-TW')) {
+            if (['-TW'].includes(suffix)) {
                 return 'green'
             }
-            if (glyphName.endsWith('-JP90-JP')) {
+            if (['-JP', '-JP-V', '-JP90-JP', '-HW-JP'].includes(suffix)) {
                 return 'crimson'
             }
-            if (glyphName.endsWith('uE0101-JP')) {
-                return 'darkred'
-            }
-            if (glyphName.endsWith('uE0102-JP')) {
-                return 'indianred'
-            }
-            if (glyphName.endsWith('-JP')) {
-                return 'red'
-            }
-            if (glyphName.endsWith('-KR')) {
+            if (['-KR', '-HW-KR'].includes(suffix)) {
                 return 'violet'
+            }
+            if (['.ljmo01', '.ljmo02', '.ljmo03', '.ljmo04', '.ljmo05', '.ljmo06', '.tjmo01', '.tjmo02', '.tjmo03', '.tjmo04', '.vjmo01', '.vjmo02'].includes(suffix)) {
+                return 'blueviolet'
+            }
+            if (['-FW', '-FW-V', '-HW', '-PW', '-V'].includes(suffix)) {
+                return 'gray'
             }
             return 'black'
         },
