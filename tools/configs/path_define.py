@@ -8,4 +8,5 @@ fonts_dir = assets_dir.joinpath('fonts')
 cache_dir = project_root_dir.joinpath('cache')
 
 www_dir = project_root_dir.joinpath('www')
+www_fonts_dir = www_dir.joinpath('fonts')
 www_data_dir = www_dir.joinpath('data')

@@ -4,10 +4,10 @@ font_styles = [
     'serif',
 ]
 
-language_flavors = [
-    'cn',
-    'hk',
-    'tw',
-    'jp',
-    'kr',
-]
+language_flavors = {
+    'cn': 'SC',
+    'hk': 'HC',
+    'tw': 'TC',
+    'jp': '',
+    'kr': 'K',
+}

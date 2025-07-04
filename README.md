@@ -13,10 +13,10 @@
 
 - [HTTPX](https://github.com/encode/httpx)
 - [tqdm](https://github.com/tqdm/tqdm)
+- [FontTools](https://github.com/fonttools/fonttools)
 - [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [Character Encoding Utils](https://github.com/TakWolf/character-encoding-utils)
 - [Vue.js](https://cn.vuejs.org)
-- [思源可变字体切片](https://github.com/TakWolf/source-han-vf-sliced)
 
 ## 灵感来源
 
