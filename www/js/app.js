@@ -43,7 +43,11 @@ createApp({
     },
     watch: {
         input(newValue) {
-            window.location.hash = newValue
+            if (newValue.length > 500) {
+                this.input = newValue.substring(0, 500)
+            } else {
+                window.location.hash = newValue
+            }
         },
         settings(newValue) {
             console.log('保存配置：', newValue)
