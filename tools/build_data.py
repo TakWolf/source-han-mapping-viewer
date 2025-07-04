@@ -4,7 +4,7 @@ import shutil
 import unidata_blocks
 from character_encoding_utils import gb2312, big5, shiftjis, ksx1001
 
-from tools import data_dir, www_data_dir, font_styles, language_flavors
+from tools import fonts_dir, www_data_dir, font_styles, language_flavors
 
 
 def _build_db() -> dict:
@@ -25,7 +25,7 @@ def _build_db() -> dict:
 
     for font_style in font_styles:
         glyph_names = []
-        for line in data_dir.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
+        for line in fonts_dir.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
             glyph_names.append(line.split(' ')[3])
         ai0[font_style] = glyph_names
 
@@ -33,7 +33,7 @@ def _build_db() -> dict:
 
     for (font_style_index, font_style) in enumerate(font_styles):
         for language_flavor in language_flavors:
-            for line in data_dir.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
+            for line in fonts_dir.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
                 tokens = line.split(' ')
                 code_point = int(tokens[0].removeprefix('<').removesuffix('>'), 16)
                 glyph_id = int(tokens[1])
