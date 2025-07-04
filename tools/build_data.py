@@ -27,7 +27,7 @@ def _build_db() -> dict:
     for font_style in configs.font_styles:
         glyph_names = []
         for line in path_define.fonts_dir.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
-            glyph_names.append(line.split(' ')[3])
+            glyph_names.append(line.split('\t')[3])
         ai0[font_style] = glyph_names
 
     mapping = {}
@@ -35,7 +35,7 @@ def _build_db() -> dict:
     for (font_style_index, font_style) in enumerate(configs.font_styles):
         for language_flavor in configs.language_flavors:
             for line in path_define.fonts_dir.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
-                tokens = line.split(' ')
+                tokens = line.split('\t')
                 code_point = int(tokens[0].removeprefix('<').removesuffix('>'), 16)
                 glyph_id = int(tokens[1])
 
