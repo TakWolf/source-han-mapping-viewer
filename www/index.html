@@ -36,6 +36,10 @@
                 <span class="name">字体粗细: {{ fontWeight }}</span>
                 <input type="range" min="200" max="900" step="50" v-model="fontWeight">
             </label>
+            <label class="checkbox">
+                <input type="checkbox" v-model="strokeMode">
+                <span class="name">轮廓模式</span>
+            </label>
             <button @click="onResetOptionsClick">重置参数</button>
         </div>
         <div class="search-result">
@@ -52,7 +56,7 @@
                                 <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
                                 <span class="glyph-name">{{ glyphName }}</span>
                             </div>
-                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSans-' + languageFlavor.toUpperCase() + ', sans-serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c === ' ' ? '&nbsp;' : c }}</span>
+                            <span class="char" :style="getCharStyle(true, languageFlavor, glyphName)">{{ c === ' ' ? '&nbsp;' : c }}</span>
                         </div>
                     </div>
                     <div class="line" v-if="displaySerif && db.mapping[codePoint][1].length > 0">
@@ -61,7 +65,7 @@
                                 <span class="language-flavor">{{ languageFlavor.toUpperCase() }}</span>
                                 <span class="glyph-name">{{ glyphName }}</span>
                             </div>
-                            <span class="char" :style="{ width: fontSize * 1.4 + 'px', color: getGlyphColor(glyphName), fontFamily: 'SourceHanSerif-' + languageFlavor.toUpperCase() + ', serif', fontSize: fontSize + 'px', fontWeight: fontWeight }">{{ c === ' ' ? '&nbsp;' : c }}</span>
+                            <span class="char" :style="getCharStyle(false, languageFlavor, glyphName)">{{ c === ' ' ? '&nbsp;' : c }}</span>
                         </div>
                     </div>
                 </div>

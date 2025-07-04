@@ -18,6 +18,7 @@ createApp({
             displaySerif: true,
             fontSize: 160,
             fontWeight: 400,
+            strokeMode: false,
         }
     },
     computed: {
@@ -38,6 +39,7 @@ createApp({
                 displaySerif: this.displaySerif,
                 fontSize: this.fontSize,
                 fontWeight: this.fontWeight,
+                strokeMode: this.strokeMode,
             }
         },
     },
@@ -119,9 +121,30 @@ createApp({
             }
             return 'black'
         },
+        getCharStyle(isSans, languageFlavor, glyphName) {
+            const style = {
+                width: `${this.fontSize * 1.4}px`,
+                fontSize: `${this.fontSize}px`,
+                fontWeight: this.fontWeight,
+            }
+            if (isSans) {
+                style.fontFamily = `SourceHanSans-${languageFlavor.toUpperCase()}, sans-serif`
+            } else {
+                style.fontFamily = `SourceHanSerif-${languageFlavor.toUpperCase()}, serif`
+            }
+            if (this.strokeMode) {
+                style.color = 'transparent'
+                style.webkitTextStrokeColor = this.getGlyphColor(glyphName)
+                style.webkitTextStrokeWidth = '2px'
+            } else {
+                style.color = this.getGlyphColor(glyphName)
+            }
+            return style
+        },
         onResetOptionsClick() {
             this.fontSize = 160
             this.fontWeight = 400
+            this.strokeMode = false
         },
         onExampleTextClick(text) {
             this.input = text
