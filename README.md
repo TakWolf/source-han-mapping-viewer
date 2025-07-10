@@ -62,6 +62,7 @@ h1 {
 - [FontTools](https://github.com/fonttools/fonttools)
 - [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [Character Encoding Utils](https://github.com/TakWolf/character-encoding-utils)
+- [Loguru](https://github.com/Delgan/loguru)
 - [Vue.js](https://cn.vuejs.org)
 
 ## 参考资料

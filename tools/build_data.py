@@ -3,6 +3,7 @@ import shutil
 
 import unidata_blocks
 from character_encoding_utils import gb2312, big5, shiftjis, ksx1001
+from loguru import logger
 
 from tools import configs
 from tools.configs import path_define
@@ -85,7 +86,7 @@ def main():
 
     file_path = path_define.www_data_dir.joinpath('db.js')
     file_path.write_text(f'export default {json.dumps(db)}', 'utf-8')
-    print(f"Build: '{file_path}'")
+    logger.info("Build: '{}'", file_path)
 
 
 if __name__ == '__main__':

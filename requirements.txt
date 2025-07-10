@@ -3,3 +3,4 @@ tqdm==4.67.1
 fonttools[woff]==4.58.5
 unidata-blocks==0.0.17
 character-encoding-utils==0.0.9
+loguru==0.7.3

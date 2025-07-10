@@ -5,6 +5,7 @@ from io import StringIO
 import unidata_blocks
 from fontTools import subset
 from fontTools.ttLib import TTFont
+from loguru import logger
 
 from tools import configs
 from tools.configs import path_define
@@ -84,7 +85,7 @@ def main():
             language_flavor_dir.mkdir(parents=True)
 
             for slice_name, slice_alphabet in slice_alphabets:
-                print(f'{slice_name}: {len(slice_alphabet)}')
+                logger.info('{}: {}', slice_name, len(slice_alphabet))
 
                 sliced_font_path = language_flavor_dir.joinpath(f'SourceHan{font_style.capitalize()}-{language_flavor.upper()}-VF-{slice_name}.otf.woff2')
                 subset.main([
@@ -93,7 +94,7 @@ def main():
                     "--layout-features='*'",
                     f'--output-file={sliced_font_path}',
                 ])
-                print(f"Make Font: '{sliced_font_path}'")
+                logger.info("Make Font: '{}'", sliced_font_path)
 
                 language_flavor_css.write('\n')
                 language_flavor_css.write('@font-face {\n')
@@ -105,19 +106,19 @@ def main():
 
             language_flavor_css_path = language_flavor_dir.joinpath('index.css')
             language_flavor_css_path.write_text(language_flavor_css.getvalue(), 'utf-8')
-            print(f"Make CSS: '{language_flavor_css_path}'")
+            logger.info("Make CSS: '{}'", language_flavor_css_path)
 
             font_style_css.write(f'@import "{language_flavor}/index.css";\n')
 
         font_style_css_path = font_style_dir.joinpath('index.css')
         font_style_css_path.write_text(font_style_css.getvalue(), 'utf-8')
-        print(f"Make CSS: '{font_style_css_path}'")
+        logger.info("Make CSS: '{}'", font_style_css_path)
 
         index_css.write(f'@import "{font_style}/index.css";\n')
 
     index_css_path = path_define.www_fonts_dir.joinpath('index.css')
     index_css_path.write_text(index_css.getvalue(), 'utf-8')
-    print(f"Make CSS: '{index_css_path}'")
+    logger.info("Make CSS: '{}'", index_css_path)
 
 
 if __name__ == '__main__':
