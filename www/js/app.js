@@ -1,5 +1,5 @@
 import { createApp } from './vue.esm-browser.prod.js'
-import db from '../data/db.js'
+import db from '../data/db.json' with { type: 'json' }
 
 createApp({
     data() {

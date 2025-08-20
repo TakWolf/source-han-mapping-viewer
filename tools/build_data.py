@@ -84,8 +84,8 @@ def main():
 
     db = _build_db()
 
-    file_path = path_define.www_data_dir.joinpath('db.js')
-    file_path.write_text(f'export default {json.dumps(db)}', 'utf-8')
+    file_path = path_define.www_data_dir.joinpath('db.json')
+    file_path.write_text(json.dumps(db), 'utf-8')
     logger.info("Build: '{}'", file_path)
 
 
