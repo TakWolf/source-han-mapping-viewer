@@ -1,6 +1,0 @@
-httpx[http2]==0.28.1
-tqdm==4.67.1
-fonttools[woff]==4.59.1
-unidata-blocks==0.0.18
-character-encoding-utils==0.0.9
-loguru==0.7.3
