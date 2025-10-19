@@ -44,13 +44,13 @@ def _upgrade_fonts(font_style: str):
         shutil.rmtree(fonts_dir)
     fonts_dir.mkdir(parents=True)
 
-    shutil.copyfile(asset_unzip_dir.joinpath('LICENSE.txt'), fonts_dir.joinpath('LICENSE.txt'))
+    asset_unzip_dir.joinpath('LICENSE.txt').copy_into(fonts_dir)
     logger.info("Copy: 'LICENSE.txt'")
 
     for file_path in asset_unzip_dir.joinpath('Variable', 'WOFF2', 'OTF').iterdir():
         if file_path.suffix != '.woff2':
             continue
-        shutil.copyfile(file_path, fonts_dir.joinpath(file_path.name))
+        file_path.copy_into(fonts_dir)
         logger.info("Copy: '{}'", file_path.name)
 
     shutil.rmtree(asset_unzip_dir)
