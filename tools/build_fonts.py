@@ -11,9 +11,9 @@ from tools import configs
 from tools.configs import path_define
 
 
-def _get_slice_alphabets(alphabet: list[int]) -> list[tuple[str, list[int]]]:
+def _get_slice_alphabets(cmap: dict[int, str]) -> list[tuple[str, list[int]]]:
     block_alphabets = defaultdict[str, list[int]](list)
-    for code_point in alphabet:
+    for code_point in cmap:
         block = unidata_blocks.get_block_by_code_point(code_point)
         block_alphabets[block.name].append(code_point)
 
