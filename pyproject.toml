@@ -5,7 +5,7 @@ requires-python = ">=3.14"
 
 dependencies = [
     "httpx[http2]==0.28.1",
-    "tqdm==4.67.1",
+    "tqdm==4.67.3",
     "fonttools[woff]==4.61.1",
     "unidata-blocks==0.0.24",
     "character-encoding-utils==0.0.12",
