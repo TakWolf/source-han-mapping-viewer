@@ -1,13 +1,13 @@
 [project]
 name = "source-han-mapping-viewer"
 version = "0.0.0"
-requires-python = ">=3.14"
+requires-python = ">=3.15"
 
 dependencies = [
     "httpx[http2]==0.28.1",
-    "tqdm==4.70.0",
-    "fonttools[woff]==4.64.0",
-    "unidata-blocks==0.0.26",
-    "character-encoding-utils==0.0.12",
+    "tqdm==4.70.1",
+    "fonttools[woff]==4.67.0",
+    "unidata-blocks==0.0.28",
+    "character-encoding-utils==0.0.13",
     "loguru==0.7.3",
 ]
