@@ -63,20 +63,20 @@ def _alphabet_to_unicode_range(alphabet: list[int]) -> str:
 
 
 def main():
-    if path_define.www_fonts_dir.exists():
-        shutil.rmtree(path_define.www_fonts_dir)
-    path_define.www_fonts_dir.mkdir(parents=True)
+    if path_define.WWW_FONTS_DIR.exists():
+        shutil.rmtree(path_define.WWW_FONTS_DIR)
+    path_define.WWW_FONTS_DIR.mkdir(parents=True)
 
     index_css = StringIO()
 
-    for font_style in configs.font_styles:
+    for font_style in configs.FONT_STYLES:
         font_style_css = StringIO()
 
-        font_style_dir = path_define.www_fonts_dir.joinpath(font_style)
+        font_style_dir = path_define.WWW_FONTS_DIR.joinpath(font_style)
         font_style_dir.mkdir(parents=True)
 
-        for language_flavor, name_flavor in configs.language_flavors.items():
-            font_path = path_define.fonts_dir.joinpath(font_style, f'SourceHan{font_style.capitalize()}{name_flavor}-VF.otf.woff2')
+        for language_flavor, name_flavor in configs.LANGUAGE_FLAVORS.items():
+            font_path = path_define.FONTS_DIR.joinpath(font_style, f'SourceHan{font_style.capitalize()}{name_flavor}-VF.otf.woff2')
             slice_alphabets = _get_slice_alphabets(TTFont(font_path).getBestCmap())
 
             language_flavor_css = StringIO()
@@ -116,7 +116,7 @@ def main():
 
         index_css.write(f'@import "{font_style}/index.css";\n')
 
-    index_css_path = path_define.www_fonts_dir.joinpath('index.css')
+    index_css_path = path_define.WWW_FONTS_DIR.joinpath('index.css')
     index_css_path.write_text(index_css.getvalue(), 'utf-8')
     logger.info("Make CSS: '{}'", index_css_path)
 

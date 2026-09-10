@@ -1,10 +1,10 @@
 
-font_styles = [
+FONT_STYLES = [
     'sans',
     'serif',
 ]
 
-language_flavors = {
+LANGUAGE_FLAVORS = {
     'cn': 'SC',
     'hk': 'HC',
     'tw': 'TC',

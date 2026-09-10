@@ -1,12 +1,12 @@
 from pathlib import Path
 
-project_root_dir = Path(__file__).parent.joinpath('..', '..').resolve()
+PROJECT_ROOT_DIR = Path(__file__).parent.joinpath('..', '..').resolve()
 
-assets_dir = project_root_dir.joinpath('assets')
-fonts_dir = assets_dir.joinpath('fonts')
+ASSETS_DIR = PROJECT_ROOT_DIR.joinpath('assets')
+FONTS_DIR = ASSETS_DIR.joinpath('fonts')
 
-cache_dir = project_root_dir.joinpath('cache')
+CACHE_DIR = PROJECT_ROOT_DIR.joinpath('cache')
 
-www_dir = project_root_dir.joinpath('www')
-www_fonts_dir = www_dir.joinpath('fonts')
-www_data_dir = www_dir.joinpath('data')
+WWW_DIR = PROJECT_ROOT_DIR.joinpath('www')
+WWW_FONTS_DIR = WWW_DIR.joinpath('fonts')
+WWW_DATA_DIR = WWW_DIR.joinpath('data')

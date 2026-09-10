@@ -13,7 +13,7 @@ def _upgrade_fonts(font_style: str):
     repository_name = f'adobe-fonts/source-han-{font_style}'
     version = github_api.get_releases_latest_tag_name(repository_name).removesuffix('R')
 
-    fonts_dir = path_define.fonts_dir.joinpath(font_style)
+    fonts_dir = path_define.FONTS_DIR.joinpath(font_style)
     version_file_path = fonts_dir.joinpath('version.json')
     if version_file_path.exists():
         version_info = json.loads(version_file_path.read_bytes())
@@ -21,7 +21,7 @@ def _upgrade_fonts(font_style: str):
             return
     logger.info("Need upgrade fonts '{}' to version: '{}'", font_style, version)
 
-    download_dir = path_define.cache_dir.joinpath(repository_name, version)
+    download_dir = path_define.CACHE_DIR.joinpath(repository_name, version)
     download_dir.mkdir(parents=True, exist_ok=True)
 
     asset_file_name = f'SourceHan{font_style.capitalize()}-VF.zip'
@@ -59,7 +59,7 @@ def _upgrade_fonts(font_style: str):
     download_util.download_file(f'https://raw.githubusercontent.com/{repository_name}/{version}R/Resources/{ai0_file_name}', fonts_dir.joinpath(ai0_file_name))
     logger.info("Downloaded: '{}'", ai0_file_name)
 
-    for language_flavor in configs.language_flavors:
+    for language_flavor in configs.LANGUAGE_FLAVORS:
         utf_file_name = f'utf32-{language_flavor}.map'
         download_util.download_file(f'https://raw.githubusercontent.com/{repository_name}/{version}R/Resources/{utf_file_name}', fonts_dir.joinpath(utf_file_name))
         logger.info("Downloaded: '{}'", utf_file_name)
@@ -73,7 +73,7 @@ def _upgrade_fonts(font_style: str):
 
 
 def main():
-    for font_style in configs.font_styles:
+    for font_style in configs.FONT_STYLES:
         _upgrade_fonts(font_style)
 
 

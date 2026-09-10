@@ -25,9 +25,9 @@ def _build_db() -> dict:
 
     ai0 = {}
 
-    for font_style in configs.font_styles:
+    for font_style in configs.FONT_STYLES:
         glyph_names = []
-        for line in path_define.fonts_dir.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
+        for line in path_define.FONTS_DIR.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
             tokens = line.split('\t')
             glyph_name = tokens[3]
             glyph_names.append(glyph_name)
@@ -35,9 +35,9 @@ def _build_db() -> dict:
 
     mapping = {}
 
-    for (font_style_index, font_style) in enumerate(configs.font_styles):
-        for language_flavor in configs.language_flavors:
-            for line in path_define.fonts_dir.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
+    for (font_style_index, font_style) in enumerate(configs.FONT_STYLES):
+        for language_flavor in configs.LANGUAGE_FLAVORS:
+            for line in path_define.FONTS_DIR.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
                 tokens = line.split('\t')
                 code_point = int(tokens[0].removeprefix('<').removesuffix('>'), 16)
                 glyph_id = int(tokens[1])
@@ -78,13 +78,13 @@ def _build_db() -> dict:
 
 
 def main():
-    if path_define.www_data_dir.exists():
-        shutil.rmtree(path_define.www_data_dir)
-    path_define.www_data_dir.mkdir(parents=True)
+    if path_define.WWW_DATA_DIR.exists():
+        shutil.rmtree(path_define.WWW_DATA_DIR)
+    path_define.WWW_DATA_DIR.mkdir(parents=True)
 
     db = _build_db()
 
-    file_path = path_define.www_data_dir.joinpath('db.json')
+    file_path = path_define.WWW_DATA_DIR.joinpath('db.json')
     file_path.write_text(json.dumps(db), 'utf-8')
     logger.info("Build: '{}'", file_path)
 
