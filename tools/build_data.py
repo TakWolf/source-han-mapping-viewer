@@ -77,7 +77,7 @@ def _build_db() -> dict:
     }
 
 
-def main():
+def main() -> None:
     if path_define.WWW_DATA_DIR.exists():
         shutil.rmtree(path_define.WWW_DATA_DIR)
     path_define.WWW_DATA_DIR.mkdir(parents=True)

@@ -9,7 +9,7 @@ from tools.configs import path_define
 from tools.utils import github_api, download_util
 
 
-def _upgrade_fonts(font_style: str):
+def _upgrade_fonts(font_style: str) -> None:
     repository_name = f'adobe-fonts/source-han-{font_style}'
     version = github_api.get_releases_latest_tag_name(repository_name).removesuffix('R')
 
@@ -72,7 +72,7 @@ def _upgrade_fonts(font_style: str):
     logger.info("Update version file: '{}'", version_file_path)
 
 
-def main():
+def main() -> None:
     for font_style in configs.FONT_STYLES:
         _upgrade_fonts(font_style)
 

@@ -62,7 +62,7 @@ def _alphabet_to_unicode_range(alphabet: list[int]) -> str:
     return ', '.join(unicode_range)
 
 
-def main():
+def main() -> None:
     if path_define.WWW_FONTS_DIR.exists():
         shutil.rmtree(path_define.WWW_FONTS_DIR)
     path_define.WWW_FONTS_DIR.mkdir(parents=True)
