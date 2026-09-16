@@ -1,5 +1,6 @@
 import shutil
 from collections import defaultdict
+from collections.abc import Mapping, Sequence
 from io import StringIO
 
 import unidata_blocks
@@ -11,7 +12,7 @@ from tools import configs
 from tools.configs import path_define
 
 
-def _get_slice_alphabets(cmap: dict[int, str]) -> list[tuple[str, list[int]]]:
+def _get_slice_alphabets(cmap: Mapping[int, str]) -> list[tuple[str, list[int]]]:
     block_alphabets = defaultdict[str, list[int]](list)
     for code_point in cmap:
         block = unidata_blocks.get_block_by_code_point(code_point)
@@ -32,11 +33,11 @@ def _get_slice_alphabets(cmap: dict[int, str]) -> list[tuple[str, list[int]]]:
     return slice_alphabets
 
 
-def _alphabet_to_text(alphabet: list[int]) -> str:
+def _alphabet_to_text(alphabet: Sequence[int]) -> str:
     return ''.join(chr(code_point) for code_point in sorted(alphabet))
 
 
-def _alphabet_to_unicode_range(alphabet: list[int]) -> str:
+def _alphabet_to_unicode_range(alphabet: Sequence[int]) -> str:
     pairs = []
     code_start = None
     code_end = None
