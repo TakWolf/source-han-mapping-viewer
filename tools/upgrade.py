@@ -47,9 +47,10 @@ def _upgrade_fonts(font_style: str) -> None:
     asset_unzip_dir.joinpath('LICENSE.txt').copy_into(fonts_dir)
     logger.info("Copy: 'LICENSE.txt'")
 
-    for file_path in asset_unzip_dir.joinpath('Variable', 'WOFF2', 'OTF').iterdir():
-        if file_path.suffix != '.woff2':
+    for file_path in asset_unzip_dir.joinpath('Variable', 'WOFF2', 'OTF').glob('*.woff2'):
+        if not file_path.is_file():
             continue
+
         file_path.copy_into(fonts_dir)
         logger.info("Copy: '{}'", file_path.name)
 
