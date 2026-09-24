@@ -86,7 +86,7 @@ def main() -> None:
 
     file_path = path_define.WWW_DATA_DIR.joinpath('db.json')
     file_path.write_text(json.dumps(db), 'utf-8')
-    logger.info("Build: '{}'", file_path)
+    logger.info('Build: {!r}', str(file_path))
 
 
 if __name__ == '__main__':

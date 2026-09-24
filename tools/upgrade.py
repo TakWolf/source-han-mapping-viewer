@@ -31,14 +31,14 @@ def _upgrade_fonts(font_style: str) -> None:
         logger.info("Start download: '{}'", asset_url)
         download_util.download_file(asset_url, asset_file_path)
     else:
-        logger.info("Already downloaded: '{}'", asset_file_path)
+        logger.info('Already downloaded: {!r}', str(asset_file_path))
 
     asset_unzip_dir = asset_file_path.with_suffix('')
     if asset_unzip_dir.exists():
         shutil.rmtree(asset_unzip_dir)
     with ZipFile(asset_file_path) as file:
         file.extractall(asset_unzip_dir)
-    logger.info("Unzip: '{}'", asset_unzip_dir)
+    logger.info('Unzip: {!r}', str(asset_unzip_dir))
 
     if fonts_dir.exists():
         shutil.rmtree(fonts_dir)
@@ -70,7 +70,7 @@ def _upgrade_fonts(font_style: str) -> None:
         'version_url': f'https://github.com/adobe-fonts/source-han-serif/releases/tag/{version}R',
     }
     version_file_path.write_text(f'{json.dumps(version_info, indent=2, ensure_ascii=False)}\n', 'utf-8')
-    logger.info("Update version file: '{}'", version_file_path)
+    logger.info('Update version file: {!r}', str(version_file_path))
 
 
 def main() -> None:

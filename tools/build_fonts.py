@@ -95,7 +95,7 @@ def main() -> None:
                     "--layout-features='*'",
                     f'--output-file={sliced_font_path}',
                 ])
-                logger.info("Make Font: '{}'", sliced_font_path)
+                logger.info('Make Font: {!r}', str(sliced_font_path))
 
                 language_flavor_css.write('\n')
                 language_flavor_css.write('@font-face {\n')
@@ -107,19 +107,19 @@ def main() -> None:
 
             language_flavor_css_path = language_flavor_dir.joinpath('index.css')
             language_flavor_css_path.write_text(language_flavor_css.getvalue(), 'utf-8')
-            logger.info("Make CSS: '{}'", language_flavor_css_path)
+            logger.info('Make CSS: {!r}', str(language_flavor_css_path))
 
             font_style_css.write(f'@import "{language_flavor}/index.css";\n')
 
         font_style_css_path = font_style_dir.joinpath('index.css')
         font_style_css_path.write_text(font_style_css.getvalue(), 'utf-8')
-        logger.info("Make CSS: '{}'", font_style_css_path)
+        logger.info('Make CSS: {!r}', str(font_style_css_path))
 
         index_css.write(f'@import "{font_style}/index.css";\n')
 
     index_css_path = path_define.WWW_FONTS_DIR.joinpath('index.css')
     index_css_path.write_text(index_css.getvalue(), 'utf-8')
-    logger.info("Make CSS: '{}'", index_css_path)
+    logger.info('Make CSS: {!r}', str(index_css_path))
 
 
 if __name__ == '__main__':
