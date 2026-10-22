@@ -12,7 +12,7 @@ from tools.configs import path_define
 def _build_db() -> dict:
     tags = []
 
-    for block in unidata_blocks.get_blocks():
+    for block in unidata_blocks.BLOCKS:
         tags.append(block.name)
     for category in gb2312.get_categories():
         tags.append(f'gb2312/{category}')
