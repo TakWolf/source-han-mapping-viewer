@@ -5,8 +5,7 @@ import unidata_blocks
 from character_encoding_utils import gb2312, big5, shiftjis, ksx1001
 from loguru import logger
 
-from tools import configs
-from tools.configs import paths
+from tools.configs import paths, manifest
 
 
 def _build_db() -> dict:
@@ -25,7 +24,7 @@ def _build_db() -> dict:
 
     ai0 = {}
 
-    for font_style in configs.FONT_STYLES:
+    for font_style in manifest.FONT_STYLES:
         glyph_names = []
         for line in paths.FONTS_DIR.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
             tokens = line.split('\t')
@@ -35,8 +34,8 @@ def _build_db() -> dict:
 
     mapping = {}
 
-    for (font_style_index, font_style) in enumerate(configs.FONT_STYLES):
-        for language_flavor in configs.LANGUAGE_FLAVORS:
+    for (font_style_index, font_style) in enumerate(manifest.FONT_STYLES):
+        for language_flavor in manifest.LANGUAGE_FLAVORS:
             for line in paths.FONTS_DIR.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
                 tokens = line.split('\t')
                 code_point = int(tokens[0].removeprefix('<').removesuffix('>'), 16)

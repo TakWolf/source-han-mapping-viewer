@@ -4,8 +4,7 @@ from zipfile import ZipFile
 
 from loguru import logger
 
-from tools import configs
-from tools.configs import paths
+from tools.configs import paths, manifest
 from tools.utils import github_api, download_util
 
 
@@ -60,7 +59,7 @@ def _upgrade_fonts(font_style: str) -> None:
     download_util.download_file(f'https://raw.githubusercontent.com/{repository_name}/{version}R/Resources/{ai0_file_name}', fonts_dir.joinpath(ai0_file_name))
     logger.info("Downloaded: '{}'", ai0_file_name)
 
-    for language_flavor in configs.LANGUAGE_FLAVORS:
+    for language_flavor in manifest.LANGUAGE_FLAVORS:
         utf_file_name = f'utf32-{language_flavor}.map'
         download_util.download_file(f'https://raw.githubusercontent.com/{repository_name}/{version}R/Resources/{utf_file_name}', fonts_dir.joinpath(utf_file_name))
         logger.info("Downloaded: '{}'", utf_file_name)
@@ -74,7 +73,7 @@ def _upgrade_fonts(font_style: str) -> None:
 
 
 def main() -> None:
-    for font_style in configs.FONT_STYLES:
+    for font_style in manifest.FONT_STYLES:
         _upgrade_fonts(font_style)
 
 

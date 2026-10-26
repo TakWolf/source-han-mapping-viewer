@@ -8,8 +8,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 from loguru import logger
 
-from tools import configs
-from tools.configs import paths
+from tools.configs import paths, manifest
 
 
 def _get_slice_alphabets(cmap: Mapping[int, str]) -> list[tuple[str, list[int]]]:
@@ -70,13 +69,13 @@ def main() -> None:
 
     index_css = StringIO()
 
-    for font_style in configs.FONT_STYLES:
+    for font_style in manifest.FONT_STYLES:
         font_style_css = StringIO()
 
         font_style_dir = paths.WWW_FONTS_DIR.joinpath(font_style)
         font_style_dir.mkdir(parents=True)
 
-        for language_flavor, name_flavor in configs.LANGUAGE_FLAVORS.items():
+        for language_flavor, name_flavor in manifest.LANGUAGE_FLAVORS.items():
             font_path = paths.FONTS_DIR.joinpath(font_style, f'SourceHan{font_style.capitalize()}{name_flavor}-VF.otf.woff2')
             slice_alphabets = _get_slice_alphabets(TTFont(font_path).getBestCmap())
 
