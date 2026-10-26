@@ -6,7 +6,7 @@ from character_encoding_utils import gb2312, big5, shiftjis, ksx1001
 from loguru import logger
 
 from tools import configs
-from tools.configs import path_define
+from tools.configs import paths
 
 
 def _build_db() -> dict:
@@ -27,7 +27,7 @@ def _build_db() -> dict:
 
     for font_style in configs.FONT_STYLES:
         glyph_names = []
-        for line in path_define.FONTS_DIR.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
+        for line in paths.FONTS_DIR.joinpath(font_style, f'AI0-SourceHan{font_style.capitalize()}').read_text('utf-8').splitlines():
             tokens = line.split('\t')
             glyph_name = tokens[3]
             glyph_names.append(glyph_name)
@@ -37,7 +37,7 @@ def _build_db() -> dict:
 
     for (font_style_index, font_style) in enumerate(configs.FONT_STYLES):
         for language_flavor in configs.LANGUAGE_FLAVORS:
-            for line in path_define.FONTS_DIR.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
+            for line in paths.FONTS_DIR.joinpath(font_style, f'utf32-{language_flavor}.map').read_text('utf-8').splitlines():
                 tokens = line.split('\t')
                 code_point = int(tokens[0].removeprefix('<').removesuffix('>'), 16)
                 glyph_id = int(tokens[1])
@@ -78,13 +78,13 @@ def _build_db() -> dict:
 
 
 def main() -> None:
-    if path_define.WWW_DATA_DIR.exists():
-        shutil.rmtree(path_define.WWW_DATA_DIR)
-    path_define.WWW_DATA_DIR.mkdir(parents=True)
+    if paths.WWW_DATA_DIR.exists():
+        shutil.rmtree(paths.WWW_DATA_DIR)
+    paths.WWW_DATA_DIR.mkdir(parents=True)
 
     db = _build_db()
 
-    file_path = path_define.WWW_DATA_DIR.joinpath('db.json')
+    file_path = paths.WWW_DATA_DIR.joinpath('db.json')
     file_path.write_text(json.dumps(db), 'utf-8')
     logger.info('Build: {!r}', str(file_path))
 

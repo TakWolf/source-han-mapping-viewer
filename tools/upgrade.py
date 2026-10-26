@@ -5,7 +5,7 @@ from zipfile import ZipFile
 from loguru import logger
 
 from tools import configs
-from tools.configs import path_define
+from tools.configs import paths
 from tools.utils import github_api, download_util
 
 
@@ -13,7 +13,7 @@ def _upgrade_fonts(font_style: str) -> None:
     repository_name = f'adobe-fonts/source-han-{font_style}'
     version = github_api.get_releases_latest_tag_name(repository_name).removesuffix('R')
 
-    fonts_dir = path_define.FONTS_DIR.joinpath(font_style)
+    fonts_dir = paths.FONTS_DIR.joinpath(font_style)
     version_file_path = fonts_dir.joinpath('version.json')
     if version_file_path.exists():
         version_info = json.loads(version_file_path.read_bytes())
@@ -21,7 +21,7 @@ def _upgrade_fonts(font_style: str) -> None:
             return
     logger.info("Need upgrade fonts '{}' to version: '{}'", font_style, version)
 
-    download_dir = path_define.CACHE_DIR.joinpath(repository_name, version)
+    download_dir = paths.CACHE_DIR.joinpath(repository_name, version)
     download_dir.mkdir(parents=True, exist_ok=True)
 
     asset_file_name = f'SourceHan{font_style.capitalize()}-VF.zip'
