@@ -8,7 +8,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 from loguru import logger
 
-from tools.configs import paths, manifest
+from tools.config import paths, manifest
 
 
 def _get_slice_alphabets(cmap: Mapping[int, str]) -> list[tuple[str, list[int]]]:

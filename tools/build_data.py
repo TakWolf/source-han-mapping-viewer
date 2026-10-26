@@ -5,7 +5,7 @@ import unidata_blocks
 from character_encoding_utils import gb2312, big5, shiftjis, ksx1001
 from loguru import logger
 
-from tools.configs import paths, manifest
+from tools.config import paths, manifest
 
 
 def _build_db() -> dict:

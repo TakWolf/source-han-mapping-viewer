@@ -4,7 +4,7 @@ from zipfile import ZipFile
 
 from loguru import logger
 
-from tools.configs import paths, manifest
+from tools.config import paths, manifest
 from tools.utils import github_api, download_util
 
 
